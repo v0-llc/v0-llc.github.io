@@ -3,12 +3,12 @@
 <html>
     <head>
         <meta charset="utf-8">
+        
         <title>v0</title>
 
+        <!-- Scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    
         <script src="https://ajax.googleapis.com/ajax/libs/threejs/r84/three.min.js"></script>
-        
         <script src="https://rawgithub.com/jwagner/simplex-noise.js/master/simplex-noise.js"></script>
         
         <style>
@@ -22,22 +22,37 @@
     <body>
         
         <script>
-            // Seed the simplex noise generators
-            var simplexX = new SimplexNoise('seedX');
-            var simplexY = new SimplexNoise('seedY');
-            var simplexZ = new SimplexNoise('seedZ');
+            var dim = 120; // Make divisible by three?
+            var matrixX = dim, matrixY = dim;
             
-            var scene = new THREE.Scene();
-            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            var renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);           
+            var noiseDensity = 0.01;
             
-            var t = 0;         
+            var t = 0;
+            
+            var simplexX, simplexY, simplexZ;
+            var scene, camera, renderer;
+            
+            function initNoise(){
+                // Seed the simplex noise generators
+                simplexX = new SimplexNoise('seedX');
+                simplexY = new SimplexNoise('seedY');
+                simplexZ = new SimplexNoise('seedZ');
+            }
+            
+            function initialize(){
+                initNoise();
+
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer();
+                
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                document.body.appendChild(renderer.domElement);
+            }
             
             function initVertices(){                
-                for(var x = 0; x < 100; x++){
-                    for(var y = 0; y < 100; y++){
+                for(var x = 0; x < matrixX; x++){
+                    for(var y = 0; y < matrixY; y++){
                         for(var z = 0; z < 3; z++){
                             vertArray.push(0);
                         }                        
@@ -48,15 +63,15 @@
             function updateVerts(){
                 var positions = mesh.geometry.attributes.position.array;
                 
-                for(var x = 0; x < 100; x++){
-                    for(var y = 0; y < 100; y++){
-                        var posX = simplexX.noise3D(x / 100, y / 100, t);
-                        var posY = simplexY.noise3D(x / 100, y / 100, t);
-                        var posZ = simplexZ.noise3D(x / 100, y / 100, t);
+                for(var x = 0; x < matrixX; x++){
+                    for(var y = 0; y < matrixY; y++){
+                        var posX = simplexX.noise3D(x * noiseDensity, y * noiseDensity, t);
+                        var posY = simplexY.noise3D(x * noiseDensity, y * noiseDensity, t);
+                        var posZ = simplexZ.noise3D(x * noiseDensity, y * noiseDensity, t);
                         
-                        positions[(x + y * 100) * 3 + 0] = posX;
-                        positions[(x + y * 100) * 3 + 1] = posY;
-                        positions[(x + y * 100) * 3 + 2] = posZ;                      
+                        positions[(x + y * matrixX) * 3 + 0] = posX;
+                        positions[(x + y * matrixY) * 3 + 1] = posY;
+                        positions[(x + y * matrixX) * 3 + 2] = posZ;                      
                     }                    
                 }
                 t+=0.002;
@@ -64,7 +79,10 @@
                 mesh.geometry.attributes.position.needsUpdate = true;
             }
             
-            var vertArray = [];            
+            var vertArray = [];
+            
+            initialize();
+            
             initVertices();
             
             var vertices = new Float32Array(vertArray);
