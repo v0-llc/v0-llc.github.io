@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>v0 - art &amp; code</title>
 
     <!-- Google Fonts -->
@@ -14,7 +14,17 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/threejs/r84/three.min.js"></script>
+
+    <script src="three.min.js"></script>
+
+    <script src="https://threejs.org/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://threejs.org/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://threejs.org/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://threejs.org/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://threejs.org/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+    <script src="https://rawgithub.com/jwagner/simplex-noise.js/master/simplex-noise.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -27,12 +37,17 @@
     <div class="logo-container">
         <img id="logo" src="v0_icon_flat.png">
 
-<!--        <h2>let's start at zero</h2>-->
+        <!--        <h2>let's start at zero</h2>-->
     </div>
 
 
     <div class="left-text">
 
+        <h1>Let's start at zero.</h1>
+
+        <!--        <p class="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a elit arcu. Donec vitae elit faucibus, finibus risus at, porta erat. Nunc viverra tellus nibh, sit amet condimentum nunc posuere non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin in est sed enim dignissim semper non ac elit. Morbi vitae sem nisi. Morbi pulvinar fermentum orci, non venenatis urna tincidunt ultricies.</p>-->
+
+        <!--        <h2>work</h2>-->
         <ul id="client-list">
             <li>Jack Taylor PR</li>
             <li>WHOOP</li>
@@ -47,6 +62,7 @@
 
         <div class="social">
             <p>teddy@v0.run</p>
+            <i class="fab fa-github"></i>
             <i class="fab fa-instagram"></i>
             <i class="fab fa-linkedin-in"></i>
 
@@ -54,36 +70,7 @@
 
     </div>
 
-
-
-
-
-    <script>
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerHeight * 3, window.innerHeight * 3);
-        document.getElementById('circle-nav').appendChild(renderer.domElement);
-
-        var geometry = new THREE.BoxGeometry(4, 4, 4);
-        var material = new THREE.MeshBasicMaterial({
-            color: 0x00ff00,
-            wireframe: true
-        });
-        var cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
-
-        camera.position.z = 2;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.005;
-            renderer.render(scene, camera);
-        }
-
-        animate();
-    </script>
+    <script src="generator.js"></script>
 
 </body>
 
