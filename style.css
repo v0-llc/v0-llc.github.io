@@ -1,6 +1,6 @@
            body {
                background-color: black;
-               background: linear-gradient(to right, black, #111);
+               background: linear-gradient(to right, black, #222);
                color: white;
                font-family: 'Share Tech Mono', monospace;
                /*                font-family: 'Lusitana', serif;*/
@@ -29,7 +29,7 @@
                background-size: cover;
                background-position: center center;
                border-radius: 50%;
-               transform: translate(50vw, -100vh);
+               transform: translate(30vw, -100vh);
                overflow: hidden;
                /*               animation: spin 200s infinite linear;*/
            }
