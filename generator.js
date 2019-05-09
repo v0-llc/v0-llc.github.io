@@ -2,7 +2,7 @@ var dim = 120; // Make divisible by three?
 var matrixX = dim,
     matrixY = dim;
 
-var noiseDensity = 0.01;
+var noiseDensity = 0.012;
 
 var t = 0;
 var tx = 0,
@@ -34,7 +34,7 @@ function initialize() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, canvasSizeX / canvasSizeY, 0.1, 1000);
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({antialias: true});
 
     renderer.setSize(canvasSizeX, canvasSizeY);
     document.getElementById('circle-nav').appendChild(renderer.domElement);
@@ -96,13 +96,13 @@ geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
 geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 geometry.dynamic = true;
 
-var material = new THREE.MeshBasicMaterial({
+var material = new THREE.LineBasicMaterial({
     color: 0xffffff,
     vertexColors: THREE.VertexColors,
     wireframe: true
 });
 
-var mesh = new THREE.Mesh(geometry, material);
+var mesh = new THREE.Line(geometry, material);
 scene.add(mesh);
 
 camera.position.z = 3;
