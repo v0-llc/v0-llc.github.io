@@ -35,7 +35,6 @@ li {
 h1 {
   font-size: 70px;
   font-weight: 100;
-  margin-bottom: 40px;
   color: transparent;
   -webkit-text-stroke: 1px white; }
   @media only screen and (max-width: 1680px) {
@@ -44,15 +43,24 @@ h1 {
   @media only screen and (max-width: 768px) {
     h1 {
       font-size: 40px; } }
+  @media only screen and (max-height: 640px) {
+    h1 {
+      font-size: 30px; } }
 
 i {
-  font-size: 14px;
+  font-size: 17px;
   margin-right: 5px; }
+  @media only screen and (max-width: 1680px) {
+    i {
+      font-size: 14px; } }
 
 /** Graphics **/
 .container {
   height: 100vh;
   border: solid 20px white; }
+  @media only screen and (max-height: 640px) {
+    .container {
+      border: solid 10px white; } }
 
 .overlay {
   display: none;
@@ -64,6 +72,9 @@ i {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
   border: solid 20px white; }
+  @media only screen and (max-height: 640px) {
+    .overlay {
+      border: solid 10px white; } }
   .overlay .text-box {
     position: absolute;
     top: 50%;
@@ -110,6 +121,13 @@ i {
   @media only screen and (max-width: 768px) {
     .logo {
       display: block; } }
+  @media only screen and (max-height: 640px) {
+    .logo {
+      margin-bottom: 20px;
+      height: 60px; } }
+  @media only screen and (max-height: 360px) {
+    .logo {
+      height: 50px; } }
 
 .logo-container {
   position: absolute;
@@ -133,11 +151,23 @@ i {
   position: relative;
   height: 100%;
   padding: 40px; }
+  @media only screen and (max-height: 640px) {
+    .left-text {
+      padding: 20px; } }
+
+.tagline {
+  margin-bottom: 40px; }
+  @media only screen and (max-height: 640px) {
+    .tagline {
+      margin-bottom: 20px; } }
 
 #selected-works li {
   padding: 5px 0; }
   #selected-works li:nth-child(1) {
     padding-top: 0; }
+  @media only screen and (max-height: 480px) {
+    #selected-works li {
+      padding: 2px; } }
   #selected-works li .description {
     display: inline-block;
     opacity: 0.0;
@@ -145,6 +175,9 @@ i {
     transform: translateX(20px);
     transition: 0.3s all; }
     @media only screen and (max-width: 480px) {
+      #selected-works li .description {
+        display: none; } }
+    @media only screen and (max-height: 640px) {
       #selected-works li .description {
         display: none; } }
   #selected-works li:hover .description {
@@ -155,10 +188,25 @@ i {
   cursor: pointer;
   opacity: 0.5;
   margin-top: 40px; }
+  @media only screen and (max-height: 640px) {
+    #selected-works .client-access {
+      margin-top: 20px; } }
+  @media only screen and (max-height: 480px) {
+    #selected-works .client-access {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      margin-top: 0; } }
 
 .social {
   position: absolute;
   bottom: 40px; }
+  @media only screen and (max-height: 640px) {
+    .social {
+      bottom: 20px; } }
+  @media only screen and (max-height: 480px) {
+    .social {
+      right: 20px; } }
   .social .email {
     display: inline-block;
     margin-right: 10px; }

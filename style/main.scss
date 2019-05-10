@@ -12,6 +12,10 @@ $desktop-l: 1680px;
 $tablet: 768px;
 $phone-medium: 480px;
 
+$height-m: 640px;
+$height-s: 480px;
+$height-xs: 360px;
+
 /** Mixins **/
 @mixin center-in-parent(){
     position: absolute;
@@ -31,6 +35,19 @@ $phone-medium: 480px;
     @media #{$declaration} {
         @content;
     }
+}
+
+@mixin media-height($param1, $param2: false) {
+
+  $declaration: "only screen and (max-height: #{$param1})";
+
+  @if ($param2 != false) {
+    $declaration: "only screen and (min-height: #{$param1}) and (max-height: #{$param2})";
+  }
+
+  @media #{$declaration} {
+    @content;
+  }
 }
 
 /** Globals **/
@@ -72,8 +89,7 @@ li {
 
 h1 {
     font-size: 70px;
-    font-weight: 100;
-    margin-bottom: $space-ml;    
+    font-weight: 100;   
     color: transparent;
     -webkit-text-stroke: 1px white;
 
@@ -84,17 +100,29 @@ h1 {
     @include media($tablet) {
         font-size: 40px;
     }
+    
+    @include media-height($height-m) {
+        font-size: 30px;
+    }
 }
 
 i {
-    font-size: $font-size-m;
+    font-size: $font-size-ml;
     margin-right: 5px;
+    
+    @include media($desktop-l) {
+        font-size: $font-size-m;
+    }
 }
 
 /** Graphics **/
 .container {
     height: 100vh;
     border: solid $space-m white;
+    
+    @include media-height($height-m) {
+        border: solid $space-s white;
+    }
 }
 
 .overlay {
@@ -109,6 +137,10 @@ i {
     background-color: rgba(0, 0, 0, 0.9);
     border: solid $space-m white;
 
+    @include media-height($height-m) {
+        border: solid $space-s white;
+    }
+    
     .text-box {
         @include center-in-parent;
         
@@ -163,6 +195,15 @@ i {
     @include media($tablet) {
         display: block;
     }
+    
+    @include media-height($height-m) {
+        margin-bottom: $space-m;
+        height: 60px;
+    }
+    
+    @include media-height($height-xs) {
+        height: 50px;
+    }
 }
 
 .logo-container {
@@ -188,6 +229,18 @@ i {
     position: relative;
     height: 100%;
     padding: $space-ml;
+    
+    @include media-height($height-m) {
+        padding: $space-m;
+    }
+}
+
+.tagline {
+    margin-bottom: $space-ml;
+    
+    @include media-height($height-m) {
+        margin-bottom: $space-m;
+    }
 }
 
 #selected-works {
@@ -198,6 +251,10 @@ i {
             padding-top: 0;
         }
         
+        @include media-height($height-s) {
+            padding: 2px;
+        }
+        
         .description {
             display: inline-block;
             opacity: 0.0;
@@ -206,6 +263,10 @@ i {
             transition: 0.3s all;
 
             @include media($phone-medium) {
+                display: none;
+            }
+            
+            @include media-height($height-m) {
                 display: none;
             }
         }
@@ -221,12 +282,31 @@ i {
         cursor: pointer;
         opacity: 0.5;
         margin-top: $space-ml;
+        
+        @include media-height($height-m) {
+            margin-top: $space-m;
+        }
+        
+        @include media-height($height-s) {
+            position: fixed;
+            top: $space-ml;
+            right: $space-ml;
+            margin-top: 0;
+        }
     }
 }
 
 .social {
     position: absolute;
     bottom: $space-ml;
+    
+    @include media-height($height-m) {
+        bottom: $space-m;
+    }
+    
+    @include media-height($height-s) {
+        right: $space-m;
+    }
 
     .email {
         display: inline-block;
