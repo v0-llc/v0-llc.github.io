@@ -57,7 +57,29 @@
         </div>
         
         <div class="circle-container">
-            <div id="circle-mask"></div>
+            <div id="circle-mask">
+                <div class="credits">
+                    <ul>
+                        <li>
+                            <a target="_blank" href="https://github.com/jwagner/simplex-noise.js">simplex-noise.js by Jonas Wagner</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://threejs.org/">three.js</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html">Unreal Bloom Pass</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://threejs.org/examples/#webgl_postprocessing_afterimage">Afterimage Pass</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://threejs.org/examples/#webgl_postprocessing_fxaa">FXAA Pass</a>
+                        </li>
+                    </ul>
+                    
+                    
+                </div>
+            </div>
         </div>
 
         <div class="logo-container">
@@ -129,11 +151,15 @@
                 <p class="email"><a href="mailto:teddy@v0.run">teddy@v0.run</a></p>
                 <a target="_blank" href="https://github.com/v0-llc"><i class="fab fa-github"></i></a>
                 <a target="_blank" href="https://www.instagram.com/v0.run/"><i class="fab fa-instagram"></i></a>
-                <a target="_blank" href="https://www.linkedin.com/in/theodore-michels/"><i class="fab fa-linkedin-in"></i></a>
-
-            </div>
-            
+                <a class="last" target="_blank" href="https://www.linkedin.com/in/theodore-michels/"><i class="fab fa-linkedin-in"></i></a>
+                
+                <p class="copyright">&copy; 2019 v0 LLC</p>
+                
+                
+            </div>           
         </div>
+        
+        <div class="credits-button">i</div>
     </div>
     
     <!-- Script to generate procedural 3D mesh -->
@@ -146,6 +172,21 @@
         
         $('.overlay').click(function(){
             $(this).fadeOut();
+        });
+        
+        $('.credits-button').click(function(){
+            $('.credits').fadeToggle();
+            $('#circle-mask').toggleClass('open');
+            $('.logo-central').fadeToggle();
+            $('.left-text').fadeToggle();
+        });
+        
+        $('#circle-mask').click(function(){
+            $('.credits').fadeOut();
+            $(this).removeClass('open');
+            $('.logo-central').fadeIn();
+            $('.left-text').fadeIn();
+            
         });
     </script>
 

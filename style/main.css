@@ -48,8 +48,7 @@ h1 {
       font-size: 30px; } }
 
 i {
-  font-size: 17px;
-  margin-right: 5px; }
+  font-size: 17px; }
   @media only screen and (max-width: 1680px) {
     i {
       font-size: 14px; } }
@@ -64,7 +63,7 @@ i {
 
 .overlay {
   display: none;
-  z-index: 1;
+  z-index: 5;
   position: fixed;
   top: 0;
   left: 0;
@@ -96,22 +95,35 @@ i {
   overflow: hidden; }
 
 #circle-mask {
-  position: relative;
+  position: absolute;
   height: 200vh;
   width: 200vh;
   border: double 10px rgba(255, 255, 255, 0.1);
   background-color: rgba(255, 255, 255, 0.03);
   border-radius: 50%;
-  transform: translate(30vw, -50vh);
-  overflow: hidden; }
+  left: 30vw;
+  transform: translate(0, -50vh);
+  overflow: hidden;
+  transition: 1s all ease-in-out; }
+  #circle-mask.open {
+    left: 50%;
+    transform: translate(-50%, -50vh);
+    transition: 1s all ease-in-out; }
   @media only screen and (max-width: 768px) {
     #circle-mask {
-      transform: translate(40vw, -50vh); } }
+      left: 40vw; } }
   #circle-mask canvas {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); }
+  #circle-mask .credits {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 2; }
 
 /** Logo **/
 .logo {
@@ -148,6 +160,7 @@ i {
 
 /** Copy **/
 .left-text {
+  z-index: 1;
   position: relative;
   height: 100%;
   padding: 40px; }
@@ -195,7 +208,7 @@ i {
     #selected-works .client-access {
       position: fixed;
       top: 40px;
-      right: 40px;
+      right: calc(20px + 10px);
       margin-top: 0; } }
 
 .social {
@@ -206,9 +219,40 @@ i {
       bottom: 20px; } }
   @media only screen and (max-height: 480px) {
     .social {
-      right: 20px; } }
+      right: 20px;
+      text-align: right; } }
+  .social a {
+    display: inline-block;
+    padding: 2px; }
+    .social a.last {
+      padding-right: 0; }
   .social .email {
     display: inline-block;
-    margin-right: 10px; }
+    margin-right: 3px; }
+    .social .email a {
+      padding-left: 0; }
+  .social .copyright {
+    margin-top: 10px;
+    font-size: 10px; }
+
+.credits-button {
+  z-index: 3;
+  cursor: pointer;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  display: inline-block;
+  border: solid 2px white;
+  font-size: 14px;
+  line-height: 20px;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  border-radius: 50%; }
+  @media only screen and (max-height: 480px) {
+    .credits-button {
+      bottom: 50%;
+      transform: translateY(50%);
+      right: calc(20px + 10px); } }
 
 /*# sourceMappingURL=main.css.map */

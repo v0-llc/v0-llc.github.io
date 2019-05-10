@@ -1,43 +1,47 @@
-var dim = 90; // Make divisible by three?
-var matrixX = dim,
-    matrixY = dim;
+/** Variables **/
 
-var noiseDensity = 0.013;
-
-var t = 0;
 var tx = 0,
     ty = 0,
     tz = 0;
 
-var simplexX, simplexY, simplexZ;
-var scene, camera, renderer;
-
-var params = {
-    exposure: 1.5,
-    bloomStrength: 1.5,
-    bloomThreshold: 0,
-    bloomRadius: 0.5
-};
-
-var afterImageDamping = 0.9;
-
 var canvasSizeX = window.innerHeight * 2;
 var canvasSizeY = window.innerHeight * 2;
 
+var simplexX, simplexY, simplexZ;
+var scene, camera, renderer, renderScene;
 var geometry, material, mesh;
 
-function initNoise() {
-    // Seed the simplex noise generators
-    simplexX = new SimplexNoise();
-    simplexY = new SimplexNoise();
-    simplexZ = new SimplexNoise();
-}
+var vertArray = [], colors = [];
+var vertices;
 
-function initialize() {
-    initNoise();
+/** Settings **/
 
+var dim = 60; // Make divisible by three
+var matrixX = dim,
+    matrixY = dim;
+
+var noiseDensity = 0.015;
+
+// Bloom
+
+var params = {
+    exposure: 1,
+    bloomStrength: 1.6,
+    bloomThreshold: 0,
+    bloomRadius: 0.3
+};
+
+var afterImageDamping = 0.8; // Higher means more afterimage effect
+
+/** Subroutines **/
+
+function _initScene(){
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, canvasSizeX / canvasSizeY, 0.1, 1000);
+    
+    camera.position.z = 1.8;
+    camera.position.x = 0.7;
+    
     renderer = new THREE.WebGLRenderer({
         antialias: true,
         autoClear: false,
@@ -45,9 +49,17 @@ function initialize() {
 
     renderer.setSize(canvasSizeX, canvasSizeY);
     document.getElementById('circle-mask').appendChild(renderer.domElement);
+    renderScene = new THREE.RenderPass(scene, camera);
 }
 
-function initVertices() {
+function _initNoise() {
+    // Seed the simplex noise generators
+    simplexX = new SimplexNoise();
+    simplexY = new SimplexNoise();
+    simplexZ = new SimplexNoise();
+}
+
+function _initVertices() {
     for (var x = 0; x < matrixX; x++) {
         for (var y = 0; y < matrixY; y++) {
             for (var z = 0; z < 3; z++) {
@@ -56,6 +68,67 @@ function initVertices() {
             }
         }
     }
+    
+    vertices = new Float32Array(vertArray);
+}
+
+function _initMesh(){
+    geometry = new THREE.BufferGeometry();
+    geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.dynamic = true;
+
+    material = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.VertexColors,
+    });
+    
+    mesh = new THREE.Line(geometry, material);
+    scene.add(mesh);
+}
+
+function _postProcessSetup(){
+    composer = new THREE.EffectComposer(renderer);
+    composer.setSize(canvasSizeX, canvasSizeY);
+    
+    var bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(canvasSizeX, canvasSizeY), 1.5, 0.4, 0.85);
+    bloomPass.threshold = params.bloomThreshold;
+    bloomPass.strength = params.bloomStrength;
+    bloomPass.radius = params.bloomRadius;
+    
+    fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
+
+    var pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms['resolution'].value.x = 1 / (canvasSizeX * pixelRatio);
+    fxaaPass.material.uniforms['resolution'].value.y = 1 / (canvasSizeY * pixelRatio);
+
+    composer.addPass(renderScene);
+    afterimagePass = new THREE.AfterimagePass();
+    afterimagePass.uniforms["damp"].value = afterImageDamping;
+    
+    composer.addPass(afterimagePass);
+    composer.addPass(bloomPass);  
+    composer.addPass(fxaaPass);      
+}
+
+function onWindowResize(){
+    canvasSizeX = window.innerHeight * 2;
+    canvasSizeY = window.innerHeight * 2;
+    
+    camera.aspect = canvasSizeX / canvasSizeY;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvasSizeX, canvasSizeX);
+    composer.setSize(canvasSizeX, canvasSizeY);
+}
+
+function initialize() {
+    _initScene();
+    _initNoise();    
+    _initVertices();
+    _initMesh();
+    _postProcessSetup();
+    
+    window.addEventListener( 'resize', onWindowResize, false );
 }
 
 function updateVerts() {
@@ -74,13 +147,12 @@ function updateVerts() {
 
             colors.setXYZ(
                 x + y * matrixX,
-                simplexX.noise3D(x * noiseDensity, y * noiseDensity, t) * 1,
-                simplexY.noise3D(x * noiseDensity, y * noiseDensity, t) * 0.3,
-                simplexZ.noise3D(x * noiseDensity, y * noiseDensity, t) * 1
+                simplexX.noise3D(x * noiseDensity, y * noiseDensity, tx) * 0.9,
+                simplexY.noise3D(x * noiseDensity, y * noiseDensity, ty) * 0.3,
+                simplexZ.noise3D(x * noiseDensity, y * noiseDensity, tz) * 0.9
             );
         }
     }
-    t += 0.002;
     tx += 0.0004;
     ty -= 0.0005;
     tz += 0.0006;
@@ -89,82 +161,11 @@ function updateVerts() {
     mesh.geometry.attributes.color.needsUpdate = true;
 }
 
-var vertArray = [];
-var colors = [];
-
-initialize();
-
-initVertices();
-
-var vertices = new Float32Array(vertArray);
-
-function initMesh(){
-    geometry = new THREE.BufferGeometry();
-    geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-    geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-    geometry.dynamic = true;
-
-    material = new THREE.LineBasicMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.VertexColors,
-    });
-    
-    mesh = new THREE.Line(geometry, material);
-    scene.add(mesh);
-}
-
-initMesh();
-
-camera.position.z = 2;
-camera.position.x = 0.6;
-
-var renderScene = new THREE.RenderPass(scene, camera);
-
-var bloomPass;
-
-function postProcess(){
-    composer = new THREE.EffectComposer(renderer);
-    composer.setSize(canvasSizeX, canvasSizeY);
-    
-    bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(canvasSizeX, canvasSizeY), 1.5, 0.4, 0.85);
-    bloomPass.threshold = params.bloomThreshold;
-    bloomPass.strength = params.bloomStrength;
-    bloomPass.radius = params.bloomRadius;
-    
-    fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
-
-    var pixelRatio = renderer.getPixelRatio();
-    fxaaPass.material.uniforms['resolution'].value.x = 1 / (canvasSizeX * pixelRatio);
-    fxaaPass.material.uniforms['resolution'].value.y = 1 / (canvasSizeY * pixelRatio);
-
-    composer.addPass(renderScene);
-    afterimagePass = new THREE.AfterimagePass();
-    afterimagePass.uniforms["damp"].value = afterImageDamping;
-    composer.addPass(afterimagePass);
-    composer.addPass(fxaaPass); // Not much of a difference?
-    composer.addPass(bloomPass);    
-}
-
-postProcess();
-
-window.addEventListener( 'resize', onWindowResize, false );
-
-function onWindowResize(){
-    canvasSizeX = window.innerHeight * 2;
-    canvasSizeY = window.innerHeight * 2;
-    
-    camera.aspect = canvasSizeX / canvasSizeY;
-    camera.updateProjectionMatrix();
-    renderer.setSize(canvasSizeX, canvasSizeX);
-    composer.setSize(canvasSizeX, canvasSizeY);
-}
-
 function animate() {
     requestAnimationFrame(animate);
-
     updateVerts();
-
     composer.render(scene, camera);
 }
 
+initialize();
 animate();
