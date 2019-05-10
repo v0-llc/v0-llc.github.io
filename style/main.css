@@ -5,12 +5,17 @@
   margin: 0;
   box-sizing: border-box; }
 
+html,
+body,
+.container {
+  height: 100%; }
+
 body {
   background-color: black;
   background: linear-gradient(to right, black, #222);
   color: white;
   font-family: 'Roboto', sans-serif;
-  font-weight: 100; }
+  font-weight: 300; }
 
 a {
   color: white;
@@ -55,7 +60,6 @@ i {
 
 /** Graphics **/
 .container {
-  height: 100vh;
   border: solid 20px white; }
   @media only screen and (max-height: 640px) {
     .container {
@@ -68,7 +72,7 @@ i {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   border: solid 20px white; }
   @media only screen and (max-height: 640px) {
@@ -91,7 +95,7 @@ i {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden; }
 
 #circle-mask {
@@ -116,7 +120,8 @@ i {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); }
+    transform: translate(-50%, -50%);
+    left: 45%; }
   #circle-mask .credits {
     position: absolute;
     top: 50%;
