@@ -147,6 +147,17 @@ function postProcess(){
 
 postProcess();
 
+window.addEventListener( 'resize', onWindowResize, false );
+
+function onWindowResize(){
+    canvasSizeX = window.innerHeight * 2;
+    canvasSizeY = window.innerHeight * 2;
+    
+    camera.aspect = canvasSizeX / canvasSizeY;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvasSizeX, canvasSizeX);
+    composer.setSize(canvasSizeX, canvasSizeY);
+}
 
 function animate() {
     requestAnimationFrame(animate);
