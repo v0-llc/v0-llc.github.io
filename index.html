@@ -3,38 +3,44 @@
 <html>
 
 <head>
+    <title>code + art</title>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>v0 - art &amp; code</title>
+    <meta name="description" content="New Orleans based software development studio working at the intersection of art and technology.">
+    <meta name="robots" content="index, nofollow">
+    
+    <link rel="canonical" href="https://v0.run">   
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lusitana|Share+Tech+Mono|Vollkorn" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <script src="three.min.js"></script>
+    <!-- three.js -->
+    <script src="scripts/vendor/three.min.js"></script>
 
-    <script src="https://threejs.org/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://threejs.org/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://threejs.org/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://threejs.org/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script src="https://threejs.org/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <!-- Postprocessing -->
+    <script src="scripts/vendor/postprocessing/EffectComposer.js"></script>
     
-    <script src="https://threejs.org/examples/js/shaders/AfterimageShader.js"></script>
-
-    <script src="https://threejs.org/examples/js/postprocessing/MaskPass.js"></script>
-    <script src="https://threejs.org/examples/js/postprocessing/AfterimagePass.js"></script>
+    <script src="scripts/vendor/postprocessing/RenderPass.js"></script>
+    <script src="scripts/vendor/postprocessing/ShaderPass.js"></script>
+    <script src="scripts/vendor/postprocessing/UnrealBloomPass.js"></script>
+    <script src="scripts/vendor/postprocessing/MaskPass.js"></script>
+    <script src="scripts/vendor/postprocessing/AfterimagePass.js"></script>
     
-    <script src="https://threejs.org/examples/js/shaders/FXAAShader.js"></script>
+    <!-- Shaders -->
+    <script src="scripts/vendor/shaders/CopyShader.js"></script>
+    <script src="scripts/vendor/shaders/LuminosityHighPassShader.js"></script>   
+    <script src="scripts/vendor/shaders/AfterimageShader.js"></script>    
+    <script src="scripts/vendor/shaders/FXAAShader.js"></script>
 
-    <script src="https://rawgithub.com/jwagner/simplex-noise.js/master/simplex-noise.js"></script>
+    <!-- Noise generation -->
+    <script src="scripts/vendor/simplex-noise.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style/main.css">
 </head>
@@ -50,17 +56,17 @@
             
         </div>
         
-        <div class="circ-container">
-            <div id="circle-nav"></div>
+        <div class="circle-container">
+            <div id="circle-mask"></div>
         </div>
 
         <div class="logo-container">
-            <img id="logo" src="v0_icon_flat.png">
+            <img class="logo-central" src="media/v0_icon_flat.png" alt="v0">
         </div>
 
 
         <div class="left-text">
-            <img class="logo" src="v0_white.png">
+            <img class="logo" src="media/v0_white.png" alt="v0">
             
             <h1>code + art</h1>
             
@@ -131,7 +137,7 @@
     </div>
     
     <!-- Script to generate procedural 3D mesh -->
-    <script src="generator.js"></script>
+    <script src="scripts/generator.js"></script>
     
     <script>
         $('.client-access').click(function(){

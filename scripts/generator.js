@@ -21,8 +21,8 @@ var params = {
 
 var afterImageDamping = 0.9;
 
-var canvasSizeX = window.innerHeight * 3;
-var canvasSizeY = window.innerHeight * 3;
+var canvasSizeX = window.innerHeight * 2;
+var canvasSizeY = window.innerHeight * 2;
 
 var geometry, material, mesh;
 
@@ -44,7 +44,7 @@ function initialize() {
     });
 
     renderer.setSize(canvasSizeX, canvasSizeY);
-    document.getElementById('circle-nav').appendChild(renderer.domElement);
+    document.getElementById('circle-mask').appendChild(renderer.domElement);
 }
 
 function initVertices() {
@@ -115,8 +115,8 @@ function initMesh(){
 
 initMesh();
 
-camera.position.z = 3;
-camera.position.x = 1.5;
+camera.position.z = 2;
+camera.position.x = 0.6;
 
 var renderScene = new THREE.RenderPass(scene, camera);
 
