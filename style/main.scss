@@ -1,0 +1,272 @@
+/** Variables **/
+$font-size-s: 12px;
+$font-size-m: 14px;
+$font-size-ml: 17px;
+
+$space-ml: 40px;
+$space-m: 20px;
+$space-s: 10px;
+
+$desktop-l: 1680px;
+$tablet: 768px;
+$phone-medium: 480px;
+
+/** Mixins **/
+@mixin media($param1, $param2: false) {
+
+  $declaration: "only screen and (max-width: #{$param1})";
+
+  @if ($param2 != false) {
+    $declaration: "only screen and (min-width: #{$param1}) and (max-width: #{$param2})";
+  }
+
+  @media #{$declaration} {
+    @content;
+  }
+}
+
+/** Globals **/
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    background: linear-gradient(to right, black, #222);
+    color: white;
+    
+    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Roboto', sans-serif;
+
+    font-weight: 100;
+
+    margin: 0;
+}
+
+.container {
+    height: 100vh;
+    border: solid $space-m white;
+}
+
+.overlay {
+    display: none;
+    
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: solid $space-m white;
+    
+    .text-box {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        p{
+            margin: $space-m;
+        }
+        
+        .example {
+            @include media($phone-medium) {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+p, li {
+    font-size: $font-size-ml;
+    
+    @include media($desktop-l) {
+        font-size: $font-size-m;
+    }
+    
+    @include media($tablet) {
+        font-size: $font-size-s;
+    }
+}
+
+h1 {
+    
+    font-size: 70px;
+    margin-bottom: 40px;
+    
+    font-weight: 100;
+    color: transparent;
+    -webkit-text-stroke: 1px white;
+    
+    @include media($desktop-l) {
+        font-size: 60px;
+    }
+    
+    @include media($tablet) {
+        font-size: 40px;
+    }
+    
+}
+
+i {
+    font-size: $font-size-m;
+    margin-right: 5px;
+}
+
+/** Graphics **/
+
+.circ-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#circle-nav {
+    position: relative;
+    height: 300vh;
+    width: 300vh;
+    border: double 10px rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    transform: translate(30vw, -100vh);
+    overflow: hidden;
+    
+    @include media($tablet) {
+        transform: translate(40vw, -100vh);
+    }
+    
+    canvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/** Logo **/
+
+.logo {
+    display: none;
+    height: 80px;
+    margin-bottom: $space-ml;
+    
+    @include media($tablet) {
+        display: block;
+    }
+}
+
+.logo-container {
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    @include media($tablet) {
+        display: none;
+    }
+}
+
+#logo {
+    width: 250px;
+    border: double 10px rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    
+    @include media($desktop-l) {
+        width: 200px;
+    }
+}
+
+.left-text {
+    position: relative;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+#selected-works {
+    li {
+        margin-bottom: $space-s;
+        
+        .description {
+            display: inline-block;
+            opacity: 0.0;
+            margin-left: 3px;
+            transform: translateX($space-m);
+            transition: 0.3s all;
+            
+            @include media($phone-medium) {
+                display: none;
+            }
+        }
+        
+        &:hover .description {
+            opacity: 0.5;
+            transform: translateX(0);
+            transition: 0.3s all;
+        }
+    }
+    
+    .client-access {
+        cursor: pointer;
+        opacity: 0.5;
+        margin-top: $space-ml;
+        
+        i {
+            transition: .3s all;
+        }
+        
+        &:hover {
+            i {
+                transform: translateX($space-s);
+                transition: .3s all;
+            }
+        }
+    }
+}
+
+.about {
+    max-width: 500px;
+    text-indent: 40px;
+    margin-bottom: 40px;
+
+}
+
+.social {
+    position: absolute;
+    bottom: $space-ml;
+    
+    .email {
+        display: inline-block;
+        margin-right: $space-s;
+    }
+}
+
+/** Animation **/
+
+@keyframes spin {
+    from {
+        transform: translate(49.3vw, -100vh) rotateZ(0deg);
+    }
+    to {
+        transform: translate(49.3vw, -100vh) rotateZ(360deg);
+    }
+}

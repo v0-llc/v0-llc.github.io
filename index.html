@@ -10,6 +10,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lusitana|Share+Tech+Mono|Vollkorn" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
@@ -33,53 +36,112 @@
 
     <script src="https://rawgithub.com/jwagner/simplex-noise.js/master/simplex-noise.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style/main.css">
 </head>
 
 <body>
-    <div class="circ-container">
-        <div id="circle-nav"></div>
-    </div>
-
-    <div class="logo-container">
-        <img id="logo" src="v0_icon_flat.png">
-
-        <!--        <h2>let's start at zero</h2>-->
-    </div>
-
-
-    <div class="left-text">
-
+    <div class="container">
         
-
-        <!--        <p class="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a elit arcu. Donec vitae elit faucibus, finibus risus at, porta erat. Nunc viverra tellus nibh, sit amet condimentum nunc posuere non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin in est sed enim dignissim semper non ac elit. Morbi vitae sem nisi. Morbi pulvinar fermentum orci, non venenatis urna tincidunt ultricies.</p>-->
-
-<!--                <h2>Selected works</h2>-->
-        <ul id="client-list">
-            <li>Jack Taylor PR</li>
-            <li>WHOOP</li>
-            <li>WeLive</li>
-            <li>Lowly</li>
-            <li>Th3rd Brain</li>
-            <li>NoMBe</li>
-            <li>Phylogenetic Composer</li>
-            <li>codon.js</li>
-
-        </ul>
-
-        <div class="social">
-            <h1>Let's start at zero.</h1>
+        <div class="overlay">
+            <div class="text-box">
+                <p>To view you're development site, please visit</p>
+                <h1 class="example">yourproject.v0.run</h1>
+            </div>
             
-            <p>teddy@v0.run</p>
-            <a target="_blank" href="https://github.com/v0-llc"><i class="fab fa-github"></i></a>
-            <a target="_blank" href="https://www.instagram.com/v0.run/"><i class="fab fa-instagram"></i></a>
-            <a target="_blank" href="https://www.linkedin.com/in/theodore-michels/"><i class="fab fa-linkedin-in"></i></a>
-
+        </div>
+        
+        <div class="circ-container">
+            <div id="circle-nav"></div>
         </div>
 
-    </div>
+        <div class="logo-container">
+            <img id="logo" src="v0_icon_flat.png">
+        </div>
 
+
+        <div class="left-text">
+            <img class="logo" src="v0_white.png">
+            
+            <h1>code + art</h1>
+            
+            <ul id="selected-works">
+                <li>
+                    <a target="_blank" href="https://www.welive.com/">WeLive
+                        <span class="description">| Development</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a target="_blank" href="https://www.moonechoaudio.com/amalgam">Amalgam
+                        <span class="description">| Development</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a target="_blank" href="https://www.whoop.com/">WHOOP
+                        <span class="description">| Development</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a target="_blank" href="https://th3rdbrain.v0.run/">Th3rd Brain
+                        <span class="description">| Design &amp; Development</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a target="_blank" href="http://www.jacktaylorpr.com/">Jack Taylor
+                        <span class="description">| Development</span>
+                    </a>
+                </li>               
+                
+                <li>
+                    <a target="_blank" href="http://phylogenetic-composer.com/">Phylogenetic Composer
+                        <span class="description">| Design &amp; Development</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a target="_blank" href="http://nombemusic.com/">NoMBe
+                        <span class="description">| Design &amp; Development</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a target="_blank" href="http://heardwell.com">Heard Well
+                        <span class="description">| Design &amp; Development</span>
+                    </a>
+                </li>
+
+                <li class="client-access">Client Access +</li>
+            </ul>
+
+            
+            <!-- Social Media -->
+            <div class="social">            
+
+                <p class="email"><a href="mailto:teddy@v0.run">teddy@v0.run</a></p>
+                <a target="_blank" href="https://github.com/v0-llc"><i class="fab fa-github"></i></a>
+                <a target="_blank" href="https://www.instagram.com/v0.run/"><i class="fab fa-instagram"></i></a>
+                <a target="_blank" href="https://www.linkedin.com/in/theodore-michels/"><i class="fab fa-linkedin-in"></i></a>
+
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- Script to generate procedural 3D mesh -->
     <script src="generator.js"></script>
+    
+    <script>
+        $('.client-access').click(function(){
+            $('.overlay').fadeIn();
+        });
+        
+        $('.overlay').click(function(){
+            $(this).fadeOut();
+        });
+    </script>
 
 </body>
 

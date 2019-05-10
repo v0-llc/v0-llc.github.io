@@ -2,7 +2,7 @@ var dim = 90; // Make divisible by three?
 var matrixX = dim,
     matrixY = dim;
 
-var noiseDensity = 0.012;
+var noiseDensity = 0.013;
 
 var t = 0;
 var tx = 0,
@@ -14,13 +14,17 @@ var scene, camera, renderer;
 
 var params = {
     exposure: 1.5,
-    bloomStrength: 1.8,
+    bloomStrength: 1.5,
     bloomThreshold: 0,
     bloomRadius: 0.5
 };
 
+var afterImageDamping = 0.9;
+
 var canvasSizeX = window.innerHeight * 3;
 var canvasSizeY = window.innerHeight * 3;
+
+var geometry, material, mesh;
 
 function initNoise() {
     // Seed the simplex noise generators
@@ -71,7 +75,7 @@ function updateVerts() {
             colors.setXYZ(
                 x + y * matrixX,
                 simplexX.noise3D(x * noiseDensity, y * noiseDensity, t) * 1,
-                simplexY.noise3D(x * noiseDensity, y * noiseDensity, t) * 0.13,
+                simplexY.noise3D(x * noiseDensity, y * noiseDensity, t) * 0.3,
                 simplexZ.noise3D(x * noiseDensity, y * noiseDensity, t) * 1
             );
         }
@@ -94,57 +98,60 @@ initVertices();
 
 var vertices = new Float32Array(vertArray);
 
-var geometry = new THREE.BufferGeometry();
-geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-geometry.dynamic = true;
+function initMesh(){
+    geometry = new THREE.BufferGeometry();
+    geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.dynamic = true;
 
-var material = new THREE.LineBasicMaterial({
-    color: 0xffffff,
-    vertexColors: THREE.VertexColors,
-    linewidth: 5,
+    material = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.VertexColors,
+    });
+    
+    mesh = new THREE.Line(geometry, material);
+    scene.add(mesh);
+}
 
-    wireframe: true
-});
-
-var mesh = new THREE.Line(geometry, material);
-scene.add(mesh);
+initMesh();
 
 camera.position.z = 3;
 camera.position.x = 1.5;
 
 var renderScene = new THREE.RenderPass(scene, camera);
 
-var bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(canvasSizeX, canvasSizeY), 1.5, 0.4, 0.85);
-bloomPass.threshold = params.bloomThreshold;
-bloomPass.strength = params.bloomStrength;
-bloomPass.radius = params.bloomRadius;
+var bloomPass;
 
-composer = new THREE.EffectComposer(renderer);
+function postProcess(){
+    composer = new THREE.EffectComposer(renderer);
+    composer.setSize(canvasSizeX, canvasSizeY);
+    
+    bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(canvasSizeX, canvasSizeY), 1.5, 0.4, 0.85);
+    bloomPass.threshold = params.bloomThreshold;
+    bloomPass.strength = params.bloomStrength;
+    bloomPass.radius = params.bloomRadius;
+    
+    fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
 
-composer.setSize(canvasSizeX, canvasSizeY);
+    var pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms['resolution'].value.x = 1 / (canvasSizeX * pixelRatio);
+    fxaaPass.material.uniforms['resolution'].value.y = 1 / (canvasSizeY * pixelRatio);
 
+    composer.addPass(renderScene);
+    afterimagePass = new THREE.AfterimagePass();
+    afterimagePass.uniforms["damp"].value = afterImageDamping;
+    composer.addPass(afterimagePass);
+    composer.addPass(fxaaPass); // Not much of a difference?
+    composer.addPass(bloomPass);    
+}
 
-fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
-
-var pixelRatio = renderer.getPixelRatio();
-fxaaPass.material.uniforms['resolution'].value.x = 1 / (canvasSizeX * pixelRatio);
-fxaaPass.material.uniforms['resolution'].value.y = 1 / (canvasSizeY * pixelRatio);
-
-composer.addPass(renderScene);
-afterimagePass = new THREE.AfterimagePass();
-afterimagePass.uniforms["damp"].value = 0.75;
-composer.addPass(afterimagePass);
-composer.addPass(bloomPass);
-composer.addPass(fxaaPass); // Not much of a difference?
+postProcess();
 
 
 function animate() {
     requestAnimationFrame(animate);
 
     updateVerts();
-
-
 
     composer.render(scene, camera);
 }
