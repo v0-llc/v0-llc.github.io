@@ -102,6 +102,8 @@ i {
     transform: translate(-50%, -50%);
     display: none;
     z-index: 2; }
+    #canvas-container .credits a {
+      white-space: nowrap; }
 
 /** Logo **/
 .logo {
@@ -159,53 +161,55 @@ i {
 
 .tagline {
   margin-bottom: 40px;
-  animation: slide-in 2s; }
+  animation: slide-up 2s; }
   @media only screen and (max-height: 640px) {
     .tagline {
       margin-bottom: 20px; } }
 
-#selected-works li {
-  padding: 5px 0; }
-  #selected-works li:nth-child(1) {
-    padding-top: 0; }
-  @media only screen and (max-height: 480px) {
-    #selected-works li {
-      padding: 2px; } }
-  #selected-works li .description {
-    display: inline-block;
-    opacity: 0.0;
-    margin-left: 3px;
-    transform: translateX(20px);
-    transition: 0.3s all; }
-    @media only screen and (max-width: 480px) {
-      #selected-works li .description {
-        display: none; } }
-    @media only screen and (max-height: 640px) {
-      #selected-works li .description {
-        display: none; } }
-  #selected-works li:hover .description {
+#selected-works {
+  animation: slide-up 2.5s; }
+  #selected-works li {
+    padding: 5px 0; }
+    #selected-works li:nth-child(1) {
+      padding-top: 0; }
+    @media only screen and (max-height: 480px) {
+      #selected-works li {
+        padding: 2px; } }
+    #selected-works li .description {
+      display: inline-block;
+      opacity: 0.0;
+      margin-left: 3px;
+      transform: translateX(20px);
+      transition: 0.3s all; }
+      @media only screen and (max-width: 480px) {
+        #selected-works li .description {
+          display: none; } }
+      @media only screen and (max-height: 640px) {
+        #selected-works li .description {
+          display: none; } }
+    #selected-works li:hover .description {
+      opacity: 0.5;
+      transform: translateX(0);
+      transition: 0.3s all; }
+  #selected-works .client-access {
+    cursor: pointer;
     opacity: 0.5;
-    transform: translateX(0);
-    transition: 0.3s all; }
-#selected-works .client-access {
-  cursor: pointer;
-  opacity: 0.5;
-  margin-top: 40px; }
-  #selected-works .client-access span {
-    display: inline-block;
-    transition: 0.5s transform; }
-  #selected-works .client-access:hover span {
-    transform: rotateZ(90deg);
-    transition: 0.5s transform; }
-  @media only screen and (max-height: 640px) {
-    #selected-works .client-access {
-      margin-top: 20px; } }
-  @media only screen and (max-height: 480px) {
-    #selected-works .client-access {
-      position: fixed;
-      top: 20px;
-      right: calc(20px + 10px);
-      margin-top: 0; } }
+    margin-top: 40px; }
+    #selected-works .client-access span {
+      display: inline-block;
+      transition: 0.5s transform; }
+    #selected-works .client-access:hover span {
+      transform: rotateZ(90deg);
+      transition: 0.5s transform; }
+    @media only screen and (max-height: 640px) {
+      #selected-works .client-access {
+        margin-top: 20px; } }
+    @media only screen and (max-height: 480px) {
+      #selected-works .client-access {
+        position: fixed;
+        top: 20px;
+        right: calc(20px + 10px);
+        margin-top: 0; } }
 
 .social {
   position: absolute;
@@ -266,7 +270,8 @@ i {
       transform: translateY(50%);
       right: calc(20px + 10px); } }
 
-@keyframes slide-in {
+/** Animation **/
+@keyframes slide-up {
   from {
     opacity: 0.0;
     transform: translateY(33%); }

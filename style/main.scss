@@ -4,18 +4,15 @@ $font-size-xs: 10px;
 $font-size-s: 12px;
 $font-size-m: 14px;
 $font-size-ml: 17px;
-
 $space-l: 60px;
 $space-ml: 40px;
 $space-m: 20px;
 $space-s: 10px;
 $space-xs: 5px;
-
 $desktop-l: 1680px;
 $desktop-s: 1024px;
 $tablet: 768px;
 $phone-medium: 480px;
-
 $height-m: 640px;
 $height-s: 480px;
 $height-xs: 360px;
@@ -23,405 +20,348 @@ $height-xs: 360px;
 /** Mixins **/
 
 @mixin center-in-parent() {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @mixin media($param1, $param2: false) {
-
-    $declaration: "only screen and (max-width: #{$param1})";
-
-    @if ($param2 !=false) {
-        $declaration: "only screen and (min-width: #{$param1}) and (max-width: #{$param2})";
-    }
-
-    @media #{$declaration} {
-        @content;
-    }
+  $declaration: "only screen and (max-width: #{$param1})";
+  @if ($param2 !=false) {
+    $declaration: "only screen and (min-width: #{$param1}) and (max-width: #{$param2})";
+  }
+  @media #{$declaration} {
+    @content;
+  }
 }
 
 @mixin media-height($param1, $param2: false) {
-
-    $declaration: "only screen and (max-height: #{$param1})";
-
-    @if ($param2 !=false) {
-        $declaration: "only screen and (min-height: #{$param1}) and (max-height: #{$param2})";
-    }
-
-    @media #{$declaration} {
-        @content;
-    }
+  $declaration: "only screen and (max-height: #{$param1})";
+  @if ($param2 !=false) {
+    $declaration: "only screen and (min-height: #{$param1}) and (max-height: #{$param2})";
+  }
+  @media #{$declaration} {
+    @content;
+  }
 }
 
 /** Globals **/
 
 * {
-    margin: 0;
-    box-sizing: border-box;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 html,
 body,
 .container {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    background-color: black;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+  background-color: black;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 p,
 li {
-    font-size: $font-size-ml;
-
-    @include media($desktop-l) {
-        font-size: $font-size-m;
-    }
-
-    @include media($tablet) {
-        font-size: $font-size-s;
-    }
+  font-size: $font-size-ml;
+  @include media($desktop-l) {
+    font-size: $font-size-m;
+  }
+  @include media($tablet) {
+    font-size: $font-size-s;
+  }
 }
 
 h1 {
-    font-size: 100px;
-    font-weight: 100;
-    color: white;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px white;
-
-    @include media($desktop-l) {
-        font-size: 60px;
-    }
-
-    @include media($tablet) {
-        font-size: 40px;
-    }
-
-    @include media-height($height-m) {
-        font-size: 30px;
-    }
+  font-size: 100px;
+  font-weight: 100;
+  color: white;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px white;
+  @include media($desktop-l) {
+    font-size: 60px;
+  }
+  @include media($tablet) {
+    font-size: 40px;
+  }
+  @include media-height($height-m) {
+    font-size: 30px;
+  }
 }
 
 i {
-    font-size: $font-size-ml;
-
-    @include media($desktop-l) {
-        font-size: $font-size-m;
-    }
+  font-size: $font-size-ml;
+  @include media($desktop-l) {
+    font-size: $font-size-m;
+  }
 }
 
 /** Graphics **/
 
 .overlay {
-    display: none;
-
-    z-index: 5;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-
-    .text-box {
-        @include center-in-parent;
-
-        text-align: center;
-
-        p {
-            margin: $space-m;
-        }
-
-        .example {
-            @include media($phone-medium) {
-                font-size: 30px;
-            }
-        }
+  display: none;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  .text-box {
+    @include center-in-parent;
+    text-align: center;
+    p {
+      margin: $space-m;
     }
+    .example {
+      @include media($phone-medium) {
+        font-size: 30px;
+      }
+    }
+  }
 }
 
 #canvas-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;  
-
-    overflow: hidden;
-    
-    canvas {
-        @include center-in-parent;
-        
-        display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  canvas {
+    @include center-in-parent;
+    display: none;
+  }
+  .credits {
+    @include center-in-parent;
+    display: none;
+    z-index: 2;
+    a {
+      white-space: nowrap;
     }
-
-    .credits {
-        @include center-in-parent;
-
-        display: none;
-        z-index: 2;
-    }
-
+  }
 }
 
 /** Logo **/
 
 .logo {
-    display: none;
-    height: 80px;
-    margin-bottom: $space-ml;
-
-    @include media($tablet) {
-        display: block;
-    }
-
-    @include media-height($height-m) {
-        margin-bottom: $space-m;
-        height: 60px;
-    }
-
-    @include media-height($height-xs) {
-        height: 50px;
-    }
+  display: none;
+  height: 80px;
+  margin-bottom: $space-ml;
+  @include media($tablet) {
+    display: block;
+  }
+  @include media-height($height-m) {
+    margin-bottom: $space-m;
+    height: 60px;
+  }
+  @include media-height($height-xs) {
+    height: 50px;
+  }
 }
 
 .logo-container {
-    @include center-in-parent;
-    
-    @include media($tablet) {
-        display: none;
-    }
+  @include center-in-parent;
+  @include media($tablet) {
+    display: none;
+  }
 }
 
-.logo-central {    
-    @include center-in-parent;
-
-    width: 150px;
-    
-    @include media($desktop-l) {
-        width: 120px;
-    }
+.logo-central {
+  @include center-in-parent;
+  width: 150px;
+  @include media($desktop-l) {
+    width: 120px;
+  }
 }
 
 /** Copy **/
 
-.left-text {   
-    z-index: 1;
-    position: relative;
-    height: 100%;
-    padding: $space-l;
-
-    @include media($phone-medium) {
-        padding: $space-ml;
-    }
-    
-    @include media($tablet) {
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
-    }
-    
-    @include media-height($height-m) {
-        padding: $space-ml;
-    }
-    
-    @include media-height($height-s) {
-        padding: $space-m;
-    }
+.left-text {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+  padding: $space-l;
+  @include media($phone-medium) {
+    padding: $space-ml;
+  }
+  @include media($tablet) {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
+  }
+  @include media-height($height-m) {
+    padding: $space-ml;
+  }
+  @include media-height($height-s) {
+    padding: $space-m;
+  }
 }
 
 .tagline {
-    margin-bottom: $space-ml;
-    
-    animation: slide-in 2s;
-
-    @include media-height($height-m) {
-        margin-bottom: $space-m;
-    }
+  margin-bottom: $space-ml;
+  animation: slide-up 2s;
+  @include media-height($height-m) {
+    margin-bottom: $space-m;
+  }
 }
 
 #selected-works {
-    li {
-        padding: $space-xs 0;
-
-        &:nth-child(1) {
-            padding-top: 0;
-        }
-
-        @include media-height($height-s) {
-            padding: 2px;
-        }
-
-        .description {
-            display: inline-block;
-            opacity: 0.0;
-            margin-left: 3px;
-            transform: translateX($space-m);
-            transition: 0.3s all;
-
-            @include media($phone-medium) {
-                display: none;
-            }
-
-            @include media-height($height-m) {
-                display: none;
-            }
-        }
-
-        &:hover .description {
-            opacity: 0.5;
-            transform: translateX(0);
-            transition: 0.3s all;
-        }
+  animation: slide-up 2.5s;
+  li {
+    padding: $space-xs 0;
+    &:nth-child(1) {
+      padding-top: 0;
     }
-
-    .client-access {
-        cursor: pointer;
-        opacity: 0.5;
-        margin-top: $space-ml;
-        
-        span {
-            display: inline-block;
-            transition: 0.5s transform;
-        }
-        
-        &:hover span {            
-            transform: rotateZ(90deg);
-            transition: 0.5s transform;
-        }
-        
-        @include media-height($height-m) {
-            margin-top: $space-m;
-        }
-
-        @include media-height($height-s) {
-            position: fixed;
-            top: $space-m;
-            right: calc(#{$space-m} + 10px);
-            margin-top: 0;
-        }
+    @include media-height($height-s) {
+      padding: 2px;
     }
+    .description {
+      display: inline-block;
+      opacity: 0.0;
+      margin-left: 3px;
+      transform: translateX($space-m);
+      transition: 0.3s all;
+      @include media($phone-medium) {
+        display: none;
+      }
+      @include media-height($height-m) {
+        display: none;
+      }
+    }
+    &:hover .description {
+      opacity: 0.5;
+      transform: translateX(0);
+      transition: 0.3s all;
+    }
+  }
+  .client-access {
+    cursor: pointer;
+    opacity: 0.5;
+    margin-top: $space-ml;
+    span {
+      display: inline-block;
+      transition: 0.5s transform;
+    }
+    &:hover span {
+      transform: rotateZ(90deg);
+      transition: 0.5s transform;
+    }
+    @include media-height($height-m) {
+      margin-top: $space-m;
+    }
+    @include media-height($height-s) {
+      position: fixed;
+      top: $space-m;
+      right: calc(#{$space-m} + 10px);
+      margin-top: 0;
+    }
+  }
 }
 
 .social {
-    position: absolute;
-    bottom: $space-l;
-
-    animation: slide-down 2s;
-    
-    @include media($phone-medium) {
-        bottom: $space-ml;
+  position: absolute;
+  bottom: $space-l;
+  animation: slide-down 2s;
+  @include media($phone-medium) {
+    bottom: $space-ml;
+  }
+  @include media-height($height-s) {
+    right: $space-m;
+    bottom: $space-m;
+    text-align: right;
+  }
+  a {
+    display: inline-block;
+    padding: 2px;
+    transition: 0.3s all;
+    &:hover {
+      opacity: 0.5;
+      transition: 0.3s all;
     }
-
-    @include media-height($height-s) {
-        right: $space-m;
-        bottom: $space-m;
-        text-align: right;
+    &.last {
+      padding-right: 0;
     }
-
+  }
+  .email {
+    display: inline-block;
+    margin-right: 3px;
     a {
-        display: inline-block;
-        padding: 2px;
-
-        transition: 0.3s all;
-        
-        &:hover {
-            opacity: 0.5;
-            transition: 0.3s all;
-        }
-        
-        &.last {
-            padding-right: 0;
-        }
+      padding-left: 0;
     }
-
-    .email {
-        display: inline-block;
-        margin-right: 3px;
-
-        a {
-            padding-left: 0;
-        }
-    }
-
-    .copyright {
-        margin-top: $space-s;
-        font-size: $font-size-xs;
-    }
+  }
+  .copyright {
+    margin-top: $space-s;
+    font-size: $font-size-xs;
+  }
 }
 
 .credits-button {
-    z-index: 3;
-    
-    cursor: pointer;
-    
-    position: fixed;
-    right: $space-l;
-    bottom: $space-l;
-
-    display: inline-block;
-    border: solid 2px white;
-    font-size: $font-size-m;
-    line-height: 20px;
-    width: 22px;
-    height: 22px;
-    
-    text-align: center;
-    border-radius: 50%;
+  z-index: 3;
+  cursor: pointer;
+  position: fixed;
+  right: $space-l;
+  bottom: $space-l;
+  display: inline-block;
+  border: solid 2px white;
+  font-size: $font-size-m;
+  line-height: 20px;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  border-radius: 50%;
+  transition: 0.3s all;
+  &:hover {
+    background-color: white;
+    color: black;
     transition: 0.3s all;
-    
-    &:hover {
-        background-color: white;
-        color: black;
-        transition: 0.3s all;
-    }
-    
-    @include media($phone-medium) {
-        right: $space-ml;
-        bottom: $space-ml;
-    }
-    
-    @include media-height($height-s) {
-        bottom: 50%;
-        transform: translateY(50%);
-        right: calc(#{$space-m} + 10px);
-    }
+  }
+  @include media($phone-medium) {
+    right: $space-ml;
+    bottom: $space-ml;
+  }
+  @include media-height($height-s) {
+    bottom: 50%;
+    transform: translateY(50%);
+    right: calc(#{$space-m} + 10px);
+  }
 }
 
-@keyframes slide-in {
-    from {
-        opacity: 0.0;
-        transform: translateY(33%);
-    }
-    to {
-        opacity: 1.0;
-        transform: translateY(0);
-    }
+/** Animation **/
+
+@keyframes slide-up {
+  from {
+    opacity: 0.0;
+    transform: translateY(33%);
+  }
+  to {
+    opacity: 1.0;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide-down {
-    from {
-        opacity: 0.0;
-        transform: translateY(-33%);
-    }
-    to {
-        opacity: 1.0;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0.0;
+    transform: translateY(-33%);
+  }
+  to {
+    opacity: 1.0;
+    transform: translateY(0);
+  }
 }
