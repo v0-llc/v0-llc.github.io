@@ -5,6 +5,7 @@ $font-size-s: 12px;
 $font-size-m: 14px;
 $font-size-ml: 17px;
 
+$space-l: 60px;
 $space-ml: 40px;
 $space-m: 20px;
 $space-s: 10px;
@@ -69,10 +70,10 @@ body,
 
 body {
     background-color: black;
-    background: linear-gradient(to right, black, #222);
     color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+    text-rendering: optimizeLegibility;
 }
 
 a {
@@ -99,7 +100,7 @@ li {
 }
 
 h1 {
-    font-size: 70px;
+    font-size: 100px;
     font-weight: 100;
     color: transparent;
     -webkit-text-stroke: 1px white;
@@ -127,14 +128,6 @@ i {
 
 /** Graphics **/
 
-.container {
-    border: solid $space-m white;
-
-    @include media-height($height-m) {
-        border: solid $space-s white;
-    }
-}
-
 .overlay {
     display: none;
 
@@ -145,11 +138,6 @@ i {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-    border: solid $space-m white;
-
-    @include media-height($height-m) {
-        border: solid $space-s white;
-    }
 
     .text-box {
         @include center-in-parent;
@@ -168,45 +156,17 @@ i {
     }
 }
 
-.circle-container {
+#canvas-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-#circle-mask {
-    position: absolute;
-    height: 200vh;
-    width: 200vh;
-    border: double 10px rgba(255, 255, 255, 0.1);
-    background-color: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-
-    left: 30vw;
-
-    transform: translate(0, -50vh);
+    height: 100%;  
 
     overflow: hidden;
-
-    transition: 1s all ease-in-out;
-
-    &.open {
-        left: 50%;
-        transform: translate(-50%, -50vh);
-        transition: 1s all ease-in-out;
-    }
-
-    @include media($tablet) {
-        left: 40vw;
-    }
-
+    
     canvas {
         @include center-in-parent;
-        
-        left: 45%;
     }
 
     .credits {
@@ -241,31 +201,43 @@ i {
 
 .logo-container {
     @include center-in-parent;
-
+    
     @include media($tablet) {
         display: none;
     }
 }
 
-.logo-central {
-    width: 250px;
-    border: double 10px rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
+.logo-central {    
+    @include center-in-parent;
 
+    width: 150px;
+    
     @include media($desktop-l) {
-        width: 200px;
+        width: 120px;
     }
 }
 
 /** Copy **/
 
-.left-text {
+.left-text {   
     z-index: 1;
     position: relative;
     height: 100%;
-    padding: $space-ml;
+    padding: $space-l;
 
+    @include media($phone-medium) {
+        padding: $space-ml;
+    }
+    
+    @include media($tablet) {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
+    }
+    
     @include media-height($height-m) {
+        padding: $space-ml;
+    }
+    
+    @include media-height($height-s) {
         padding: $space-m;
     }
 }
@@ -317,14 +289,24 @@ i {
         cursor: pointer;
         opacity: 0.5;
         margin-top: $space-ml;
-
+        
+        span {
+            display: inline-block;
+            transition: 0.5s transform;
+        }
+        
+        &:hover span {            
+            transform: rotateZ(90deg);
+            transition: 0.5s transform;
+        }
+        
         @include media-height($height-m) {
             margin-top: $space-m;
         }
 
         @include media-height($height-s) {
             position: fixed;
-            top: $space-ml;
+            top: $space-m;
             right: calc(#{$space-m} + 10px);
             margin-top: 0;
         }
@@ -333,14 +315,15 @@ i {
 
 .social {
     position: absolute;
-    bottom: $space-ml;
+    bottom: $space-l;
 
-    @include media-height($height-m) {
-        bottom: $space-m;
+    @include media($phone-medium) {
+        bottom: $space-ml;
     }
 
     @include media-height($height-s) {
         right: $space-m;
+        bottom: $space-m;
         text-align: right;
     }
 
@@ -348,6 +331,13 @@ i {
         display: inline-block;
         padding: 2px;
 
+        transition: 0.3s all;
+        
+        &:hover {
+            opacity: 0.5;
+            transition: 0.3s all;
+        }
+        
         &.last {
             padding-right: 0;
         }
@@ -374,8 +364,8 @@ i {
     cursor: pointer;
     
     position: fixed;
-    right: $space-ml;
-    bottom: $space-ml;
+    right: $space-l;
+    bottom: $space-l;
 
     display: inline-block;
     border: solid 2px white;
@@ -386,6 +376,18 @@ i {
     
     text-align: center;
     border-radius: 50%;
+    transition: 0.3s all;
+    
+    &:hover {
+        background-color: white;
+        color: black;
+        transition: 0.3s all;
+    }
+    
+    @include media($phone-medium) {
+        right: $space-ml;
+        bottom: $space-ml;
+    }
     
     @include media-height($height-s) {
         bottom: 50%;

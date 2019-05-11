@@ -4,8 +4,8 @@ var tx = 0,
     ty = 0,
     tz = 0;
 
-var canvasSizeX = window.innerHeight * 2;
-var canvasSizeY = window.innerHeight * 2;
+var canvasSizeX = window.innerWidth;
+var canvasSizeY = window.innerHeight;
 
 var simplexX, simplexY, simplexZ;
 var scene, camera, renderer, renderScene;
@@ -16,7 +16,7 @@ var vertices;
 
 /** Settings **/
 
-var dim = 60; // Make divisible by three
+var dim = 69; // Make divisible by three
 var matrixX = dim,
     matrixY = dim;
 
@@ -39,8 +39,8 @@ function _initScene(){
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, canvasSizeX / canvasSizeY, 0.1, 1000);
     
-    camera.position.z = 1.8;
-    camera.position.x = 0.7;
+    camera.position.z = 1.2;
+    camera.position.x = 0;
     
     renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -48,7 +48,7 @@ function _initScene(){
     });
 
     renderer.setSize(canvasSizeX, canvasSizeY);
-    document.getElementById('circle-mask').appendChild(renderer.domElement);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
     renderScene = new THREE.RenderPass(scene, camera);
 }
 
@@ -112,12 +112,12 @@ function _postProcessSetup(){
 }
 
 function onWindowResize(){
-    canvasSizeX = window.innerHeight * 2;
-    canvasSizeY = window.innerHeight * 2;
+    canvasSizeX = window.innerWidth;
+    canvasSizeY = window.innerHeight;
     
     camera.aspect = canvasSizeX / canvasSizeY;
     camera.updateProjectionMatrix();
-    renderer.setSize(canvasSizeX, canvasSizeX);
+    renderer.setSize(canvasSizeX, canvasSizeY);
     composer.setSize(canvasSizeX, canvasSizeY);
 }
 
@@ -147,15 +147,15 @@ function updateVerts() {
 
             colors.setXYZ(
                 x + y * matrixX,
-                simplexX.noise3D(x * noiseDensity, y * noiseDensity, tx) * 0.9,
+                simplexX.noise3D(x * noiseDensity, y * noiseDensity, tx) * 0.6 + 0.1,
                 simplexY.noise3D(x * noiseDensity, y * noiseDensity, ty) * 0.3,
-                simplexZ.noise3D(x * noiseDensity, y * noiseDensity, tz) * 0.9
+                simplexZ.noise3D(x * noiseDensity, y * noiseDensity, tz) * 0.6 + 0.1
             );
         }
     }
-    tx += 0.0004;
-    ty -= 0.0005;
-    tz += 0.0006;
+    tx += 0.0003;
+    ty -= 0.0004;
+    tz += 0.0005;
 
     mesh.geometry.attributes.position.needsUpdate = true;
     mesh.geometry.attributes.color.needsUpdate = true;

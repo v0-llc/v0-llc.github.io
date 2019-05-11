@@ -54,41 +54,37 @@
                 <h1 class="example">yourproject.v0.run</h1>
                 <p>e.g. th3rdbrain.v0.run</p>
             </div>            
-        </div>
-        
-        <div class="circle-container">
-            <div id="circle-mask">
-                <div class="credits">
-                    <ul>
-                        <li>
-                            <a target="_blank" href="https://github.com/jwagner/simplex-noise.js">simplex-noise.js by Jonas Wagner</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://threejs.org/">three.js</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html">Unreal Bloom Pass</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://threejs.org/examples/#webgl_postprocessing_afterimage">Afterimage Pass</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://threejs.org/examples/#webgl_postprocessing_fxaa">FXAA Pass</a>
-                        </li>
-                    </ul>
-                    
-                    
-                </div>
+        </div>        
+
+        <div id="canvas-container">
+            <div class="credits">
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://github.com/jwagner/simplex-noise.js">simplex-noise.js by Jonas Wagner</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://threejs.org/">three.js</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html">Unreal Bloom Pass</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://threejs.org/examples/#webgl_postprocessing_afterimage">Afterimage Pass</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://threejs.org/examples/#webgl_postprocessing_fxaa">FXAA Pass</a>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </div> 
 
         <div class="logo-container">
-            <img class="logo-central" src="media/v0_icon_flat.png" alt="v0">
+            <img class="logo-central" src="media/v0_white.svg" alt="v0">
         </div>
 
 
         <div class="left-text">
-            <img class="logo" src="media/v0_white.png" alt="v0">
+            <img class="logo" src="media/v0_white.svg" alt="v0">
             
             <h1 class="tagline">code + art</h1>
             
@@ -141,21 +137,18 @@
                     </a>
                 </li>
 
-                <li class="client-access">Client Access +</li>
+                <li class="client-access">Client Access <span>+</span></li>
             </ul>
 
             
             <!-- Social Media -->
             <div class="social">            
-
                 <p class="email"><a href="mailto:teddy@v0.run">teddy@v0.run</a></p>
                 <a target="_blank" href="https://github.com/v0-llc"><i class="fab fa-github"></i></a>
                 <a target="_blank" href="https://www.instagram.com/v0.run/"><i class="fab fa-instagram"></i></a>
                 <a class="last" target="_blank" href="https://www.linkedin.com/in/theodore-michels/"><i class="fab fa-linkedin-in"></i></a>
                 
-                <p class="copyright">&copy; 2019 v0 LLC</p>
-                
-                
+                <p class="copyright">&copy; 2019 v0 LLC</p>               
             </div>           
         </div>
         
@@ -176,17 +169,14 @@
         
         $('.credits-button').click(function(){
             $('.credits').fadeToggle();
-            $('#circle-mask').toggleClass('open');
             $('.logo-central').fadeToggle();
             $('.left-text').fadeToggle();
         });
         
-        $('#circle-mask').click(function(){
+        $('#canvas-container').click(function(){
             $('.credits').fadeOut();
-            $(this).removeClass('open');
             $('.logo-central').fadeIn();
-            $('.left-text').fadeIn();
-            
+            $('.left-text').fadeIn();            
         });
     </script>
 

@@ -12,10 +12,10 @@ body,
 
 body {
   background-color: black;
-  background: linear-gradient(to right, black, #222);
   color: white;
   font-family: 'Roboto', sans-serif;
-  font-weight: 300; }
+  font-weight: 300;
+  text-rendering: optimizeLegibility; }
 
 a {
   color: white;
@@ -38,7 +38,7 @@ li {
       font-size: 12px; } }
 
 h1 {
-  font-size: 70px;
+  font-size: 100px;
   font-weight: 100;
   color: transparent;
   -webkit-text-stroke: 1px white; }
@@ -59,12 +59,6 @@ i {
       font-size: 14px; } }
 
 /** Graphics **/
-.container {
-  border: solid 20px white; }
-  @media only screen and (max-height: 640px) {
-    .container {
-      border: solid 10px white; } }
-
 .overlay {
   display: none;
   z-index: 5;
@@ -73,11 +67,7 @@ i {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  border: solid 20px white; }
-  @media only screen and (max-height: 640px) {
-    .overlay {
-      border: solid 10px white; } }
+  background-color: rgba(0, 0, 0, 0.9); }
   .overlay .text-box {
     position: absolute;
     top: 50%;
@@ -90,39 +80,19 @@ i {
       .overlay .text-box .example {
         font-size: 30px; } }
 
-.circle-container {
+#canvas-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden; }
-
-#circle-mask {
-  position: absolute;
-  height: 200vh;
-  width: 200vh;
-  border: double 10px rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 50%;
-  left: 30vw;
-  transform: translate(0, -50vh);
-  overflow: hidden;
-  transition: 1s all ease-in-out; }
-  #circle-mask.open {
-    left: 50%;
-    transform: translate(-50%, -50vh);
-    transition: 1s all ease-in-out; }
-  @media only screen and (max-width: 768px) {
-    #circle-mask {
-      left: 40vw; } }
-  #circle-mask canvas {
+  #canvas-container canvas {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    left: 45%; }
-  #circle-mask .credits {
+    transform: translate(-50%, -50%); }
+  #canvas-container .credits {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -156,20 +126,31 @@ i {
       display: none; } }
 
 .logo-central {
-  width: 250px;
-  border: double 10px rgba(255, 255, 255, 0.1);
-  border-radius: 50%; }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px; }
   @media only screen and (max-width: 1680px) {
     .logo-central {
-      width: 200px; } }
+      width: 120px; } }
 
 /** Copy **/
 .left-text {
   z-index: 1;
   position: relative;
   height: 100%;
-  padding: 40px; }
+  padding: 60px; }
+  @media only screen and (max-width: 480px) {
+    .left-text {
+      padding: 40px; } }
+  @media only screen and (max-width: 768px) {
+    .left-text {
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent); } }
   @media only screen and (max-height: 640px) {
+    .left-text {
+      padding: 40px; } }
+  @media only screen and (max-height: 480px) {
     .left-text {
       padding: 20px; } }
 
@@ -206,29 +187,40 @@ i {
   cursor: pointer;
   opacity: 0.5;
   margin-top: 40px; }
+  #selected-works .client-access span {
+    display: inline-block;
+    transition: 0.5s transform; }
+  #selected-works .client-access:hover span {
+    transform: rotateZ(90deg);
+    transition: 0.5s transform; }
   @media only screen and (max-height: 640px) {
     #selected-works .client-access {
       margin-top: 20px; } }
   @media only screen and (max-height: 480px) {
     #selected-works .client-access {
       position: fixed;
-      top: 40px;
+      top: 20px;
       right: calc(20px + 10px);
       margin-top: 0; } }
 
 .social {
   position: absolute;
-  bottom: 40px; }
-  @media only screen and (max-height: 640px) {
+  bottom: 60px; }
+  @media only screen and (max-width: 480px) {
     .social {
-      bottom: 20px; } }
+      bottom: 40px; } }
   @media only screen and (max-height: 480px) {
     .social {
       right: 20px;
+      bottom: 20px;
       text-align: right; } }
   .social a {
     display: inline-block;
-    padding: 2px; }
+    padding: 2px;
+    transition: 0.3s all; }
+    .social a:hover {
+      opacity: 0.5;
+      transition: 0.3s all; }
     .social a.last {
       padding-right: 0; }
   .social .email {
@@ -244,8 +236,8 @@ i {
   z-index: 3;
   cursor: pointer;
   position: fixed;
-  right: 40px;
-  bottom: 40px;
+  right: 60px;
+  bottom: 60px;
   display: inline-block;
   border: solid 2px white;
   font-size: 14px;
@@ -253,7 +245,16 @@ i {
   width: 22px;
   height: 22px;
   text-align: center;
-  border-radius: 50%; }
+  border-radius: 50%;
+  transition: 0.3s all; }
+  .credits-button:hover {
+    background-color: white;
+    color: black;
+    transition: 0.3s all; }
+  @media only screen and (max-width: 480px) {
+    .credits-button {
+      right: 40px;
+      bottom: 40px; } }
   @media only screen and (max-height: 480px) {
     .credits-button {
       bottom: 50%;
