@@ -15,7 +15,8 @@ body {
   color: white;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  text-rendering: optimizeLegibility; }
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden; }
 
 a {
   color: white;
@@ -40,7 +41,8 @@ li {
 h1 {
   font-size: 100px;
   font-weight: 100;
-  color: transparent;
+  color: white;
+  -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px white; }
   @media only screen and (max-width: 1680px) {
     h1 {
@@ -91,7 +93,8 @@ i {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); }
+    transform: translate(-50%, -50%);
+    display: none; }
   #canvas-container .credits {
     position: absolute;
     top: 50%;
@@ -155,7 +158,8 @@ i {
       padding: 20px; } }
 
 .tagline {
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  animation: slide-in 2s; }
   @media only screen and (max-height: 640px) {
     .tagline {
       margin-bottom: 20px; } }
@@ -205,7 +209,8 @@ i {
 
 .social {
   position: absolute;
-  bottom: 60px; }
+  bottom: 60px;
+  animation: slide-down 2s; }
   @media only screen and (max-width: 480px) {
     .social {
       bottom: 40px; } }
@@ -260,5 +265,20 @@ i {
       bottom: 50%;
       transform: translateY(50%);
       right: calc(20px + 10px); } }
+
+@keyframes slide-in {
+  from {
+    opacity: 0.0;
+    transform: translateY(33%); }
+  to {
+    opacity: 1.0;
+    transform: translateY(0); } }
+@keyframes slide-down {
+  from {
+    opacity: 0.0;
+    transform: translateY(-33%); }
+  to {
+    opacity: 1.0;
+    transform: translateY(0); } }
 
 /*# sourceMappingURL=main.css.map */

@@ -74,6 +74,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
 }
 
 a {
@@ -102,7 +103,8 @@ li {
 h1 {
     font-size: 100px;
     font-weight: 100;
-    color: transparent;
+    color: white;
+    -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px white;
 
     @include media($desktop-l) {
@@ -167,6 +169,8 @@ i {
     
     canvas {
         @include center-in-parent;
+        
+        display: none;
     }
 
     .credits {
@@ -244,6 +248,8 @@ i {
 
 .tagline {
     margin-bottom: $space-ml;
+    
+    animation: slide-in 2s;
 
     @include media-height($height-m) {
         margin-bottom: $space-m;
@@ -317,6 +323,8 @@ i {
     position: absolute;
     bottom: $space-l;
 
+    animation: slide-down 2s;
+    
     @include media($phone-medium) {
         bottom: $space-ml;
     }
@@ -393,5 +401,27 @@ i {
         bottom: 50%;
         transform: translateY(50%);
         right: calc(#{$space-m} + 10px);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0.0;
+        transform: translateY(33%);
+    }
+    to {
+        opacity: 1.0;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0.0;
+        transform: translateY(-33%);
+    }
+    to {
+        opacity: 1.0;
+        transform: translateY(0);
     }
 }
