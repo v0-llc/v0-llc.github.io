@@ -96,14 +96,34 @@ i {
     transform: translate(-50%, -50%);
     display: none; }
   #canvas-container .credits {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     display: none;
     z-index: 2; }
+    #canvas-container .credits .text-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 480px;
+      padding: 40px; }
+      @media only screen and (max-width: 768px) {
+        #canvas-container .credits .text-box {
+          max-width: 350px; } }
+      #canvas-container .credits .text-box p {
+        margin-bottom: 20px; }
+        #canvas-container .credits .text-box p.title {
+          text-decoration: underline;
+          margin-bottom: 10px; }
+      #canvas-container .credits .text-box .anim-box {
+        animation: slide-up 2s; }
     #canvas-container .credits a {
       white-space: nowrap; }
+    #canvas-container .credits .about a {
+      display: block;
+      margin: 20px 0 40px; }
 
 /** Logo **/
 .logo {
@@ -166,50 +186,56 @@ i {
     .tagline {
       margin-bottom: 20px; } }
 
-#selected-works {
-  animation: slide-up 2.5s; }
-  #selected-works li {
-    padding: 5px 0; }
-    #selected-works li:nth-child(1) {
-      padding-top: 0; }
-    @media only screen and (max-height: 480px) {
-      #selected-works li {
-        padding: 2px; } }
-    #selected-works li .description {
-      display: inline-block;
-      opacity: 0.0;
-      margin-left: 3px;
-      transform: translateX(20px);
-      transition: 0.3s all; }
-      @media only screen and (max-width: 480px) {
-        #selected-works li .description {
-          display: none; } }
-      @media only screen and (max-height: 640px) {
-        #selected-works li .description {
-          display: none; } }
-    #selected-works li:hover .description {
-      opacity: 0.5;
-      transform: translateX(0);
-      transition: 0.3s all; }
-  #selected-works .client-access {
-    cursor: pointer;
-    opacity: 0.5;
-    margin-top: 40px; }
-    #selected-works .client-access span {
-      display: inline-block;
-      transition: 0.5s transform; }
-    #selected-works .client-access:hover span {
-      transform: rotateZ(90deg);
-      transition: 0.5s transform; }
+#selected-works li {
+  opacity: 0.0;
+  transform: translateY(50%);
+  padding: 5px 0; }
+  #selected-works li.shown {
+    opacity: 1.0;
+    transform: none;
+    transition: 0.3s all; }
+  #selected-works li:nth-child(1) {
+    padding-top: 0; }
+  @media only screen and (max-height: 480px) {
+    #selected-works li {
+      padding: 2px; } }
+  #selected-works li .description {
+    display: inline-block;
+    opacity: 0.0;
+    margin-left: 3px;
+    transform: translateX(20px);
+    transition: 0.3s all; }
+    @media only screen and (max-width: 480px) {
+      #selected-works li .description {
+        display: none; } }
     @media only screen and (max-height: 640px) {
-      #selected-works .client-access {
-        margin-top: 20px; } }
-    @media only screen and (max-height: 480px) {
-      #selected-works .client-access {
-        position: fixed;
-        top: 20px;
-        right: calc(20px + 10px);
-        margin-top: 0; } }
+      #selected-works li .description {
+        display: none; } }
+  #selected-works li:hover .description {
+    opacity: 0.5;
+    transform: translateX(0);
+    transition: 0.3s all; }
+#selected-works .client-access {
+  cursor: pointer;
+  opacity: 0.0;
+  margin-top: 40px; }
+  #selected-works .client-access.shown {
+    opacity: 0.5; }
+  #selected-works .client-access span {
+    display: inline-block;
+    transition: 0.5s transform; }
+  #selected-works .client-access:hover span {
+    transform: rotateZ(90deg);
+    transition: 0.5s transform; }
+  @media only screen and (max-height: 640px) {
+    #selected-works .client-access {
+      margin-top: 20px; } }
+  @media only screen and (max-height: 480px) {
+    #selected-works .client-access {
+      position: fixed;
+      top: 20px;
+      right: calc(20px + 10px);
+      margin-top: 0; } }
 
 .social {
   position: absolute;

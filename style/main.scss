@@ -150,11 +150,47 @@ i {
     display: none;
   }
   .credits {
-    @include center-in-parent;
+    position: relative;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
     display: none;
     z-index: 2;
+    
+    .text-box {
+      @include center-in-parent;
+      
+      width: 100%;
+      max-width: 480px;
+      padding: $space-ml;
+      
+      @include media($tablet) {
+        max-width: 350px;
+      }
+      
+      p {
+        margin-bottom: $space-m;
+        
+        &.title {
+          text-decoration: underline;
+          margin-bottom: $space-s;
+        }
+      }
+      
+      .anim-box {
+        animation: slide-up 2s;
+      }
+    }
+    
     a {
       white-space: nowrap;
+    }  
+    
+    .about {
+      a {
+        display: block;
+        margin: $space-m 0 $space-ml;
+      }
     }
   }
 }
@@ -221,10 +257,19 @@ i {
   }
 }
 
-#selected-works {
-  animation: slide-up 2.5s;
+#selected-works {  
   li {
+    opacity: 0.0;
+    transform: translateY(50%);
+    
     padding: $space-xs 0;
+    
+    &.shown {
+      opacity: 1.0;
+      transform: none;
+      transition: 0.3s all;
+    }
+    
     &:nth-child(1) {
       padding-top: 0;
     }
@@ -252,8 +297,12 @@ i {
   }
   .client-access {
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.0;
     margin-top: $space-ml;
+    &.shown {
+      opacity: 0.5;
+    }
+    
     span {
       display: inline-block;
       transition: 0.5s transform;

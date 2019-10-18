@@ -21,3 +21,8 @@ $('#canvas-container').click(function() {
   $('.logo-central').fadeIn();
   $('.left-text').fadeIn();
 });
+
+$('#selected-works li').each(function(index){  
+  $(this).attr('style', 'transition-delay: ' + index * 0.1 + 's');
+  $(this).addClass('shown');
+});
