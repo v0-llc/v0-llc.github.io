@@ -1,4 +1,4 @@
-$('#year').html(new Date().getFullYear())
+$('#copyright-year').html(new Date().getFullYear())
 
 $(window).on('load', function() {
   $('#canvas-container canvas').fadeIn();
