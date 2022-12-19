@@ -1,3 +1,5 @@
+$('#year').html(new Date().getFullYear())
+
 $(window).on('load', function() {
   $('#canvas-container canvas').fadeIn();
 })
